@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'CocaCola';
+    font-style:  normal;
+    font-weight: 200;
+    src: url(font/Coca\ Cola\ ii.ttf) format('ttf');
+  }
+
+  h1 {
+      font-family: 'CocaCola';
+  }
