@@ -2,53 +2,242 @@
 <html>
 
 <head>
-    <title>React</title>
+    <title>3D Mobile Apps</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/def892b4c5.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="x3dom/x3dom.css">
+    <script src="x3dom/x3dom.js"></script>
+    <script type="text/javascript" src="js/page_controller.js"></script>
 </head>
 
-<body clas="body">
-    <div class="row g-0">
-        <div class="col-sm-12 text-center">
-            <div class="p-3 mb-2 bg-dark text-white">
-                <h1>The Brands of <font face="Lobster">Coca Cola</font>
-                
-                </h1>
+<body style="background-color: gainsboro;">
+    <!--Landing Page-->
+    <div class="container-fluid main_contents">
+        <header class="bg-dark" style="width:100%">
+            <h1 class="text-light text-center">
+                <font face="Lobster">The Brands of </font>
+                <font face="Lobster">Coca Cola</font>
+            </h1>
+        </header>
+        <div class="row g-2 no-gutters">
+            <div class="col-sm-12 text-center g-0">
+                <div class="p-3 mb-2 bg-dark text-white">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-secondary" onclick="toHome()">Home</button>
+                        <button type="button" class="btn btn-secondary" onclick="toModels()">Models</button>
+                        <button type="button" class="btn btn-secondary" onclick="toLearning()">Further Learning</button>
+                        <button type="button" class="btn btn-secondary" onclick="toAbout()">About</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="home_page" class="container-fluid main_contents">
+            <div class="row g-2">
+                <div class="col-12 g-0">
+                    <div class="bg-image hover-zoom">
+                        <img width="100%" src="assets/cola_banner.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="row g-1">
+                <div class="col-sm-4 no-gutters">
+                    <div class="p-3 mb-2 bg-dark text-white" style="vertical-align: middle">Fanta</div>
+                    <img class="img-fluid" src="assets/fanta_banner.jpg">
+                </div>
+                <div class="col-sm-4 no-gutters">
+                    <div class="p-3 mb-2 bg-dark text-white">Costa Coffee</div>
+                    <img class="img-fluid" img src="assets/costa_banner.jpg">
+                </div>
+                <div class="col-sm-4 pr-2">
+                    <div class="p-3 mb-2 bg-dark text-white">Dr Pepper</div>
+                    <img class="img-fluid" img src="assets/dr_pepper_banner.png">
+                </div>
             </div>
         </div>
     </div>
-    <div class="row g-0">
-        <div class="col-12 g-0">
-            <div class="bg-image hover-zoom">
-                <img class="w-100" src="assets/cola_banner.png"/>
+
+    <!-- Model Page-->
+    <div id="model_page">
+        <div class="container-fluid main_contents">
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Model Selection</h5>
+                        <div class="card-body">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-secondary" onclick="changeModel(0)"
+                                    modelChoice="0">Costa</button>
+                                <button type="button" class="btn btn-secondary" onclick="changeModel(1)"
+                                    modelChoice="1">
+                                    Dr Pepper</button>
+                                <button type="button" class="btn btn-secondary" onclick="changeModel(2)"
+                                    modelChoice="2">Fanta</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Description Title</h5>
+                        <div class="card-body">
+                            <div id="descriptionTitle" text="content"></div>
+                        </div>
+                    </div>
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Model Description</h5>
+                        <div class="card-body">
+                            <div id="descriptionText" text="content"></div>
+                        </div>
+                    </div>
+                    <div class="card" style="width:35rem; margin:5px;">
+                        <h5 class="card-title bg-dark text-white">Brand Advert</h5>
+                        <div class="embed-responsive embed-responsive-21by9">
+                            <iframe width="560" height="315" id="brandVideo"
+                                src="https://www.youtube.com/embed/MYSmij0407A" title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">3D Scene</h5>
+                        <div class="card-body">
+                            <x3d>
+                                <scene>
+                                    <Viewpoint id="front" position="0 0 30" orientation="0 0 0 0" description="camera"></Viewpoint>
+                                    <Switch whichChoice="0" id="modelSwitch">
+                                        <inline url="assets/coffee_cup.x3d"></inline>
+                                        <inline url="assets/dr_pepper_can.x3d"></inline>
+                                        <inline url="assets/bottle.x3d"></inline>
+                                    </Switch>
+                                </scene>
+                            </x3d>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Controls</h5>
+
+                        <h6 class="card-subtitle mb-2 text-muted">Position</h6>
+                        <div class="card-body">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-secondary" onclick="">Pos X</button>
+                                <button type="button" class="btn btn-secondary" onclick="">Pos Y</button>
+                                <button type="button" class="btn btn-secondary" onclick="">Pos Z</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="width:35rem">
+                        <h6 class="card-subtitle mb-2 text-muted">Animation</h6>
+                        <div class="card-body">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-secondary" onclick="">Rotate Left</button>
+                                <button type="button" class="btn btn-secondary" onclick="">Rotate Right</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-    <div class="row g-0">
-        <div class="col-sm-4">
-            <div class="p-3 mb-2 bg-dark text-white">Fuzetea</div>
-            <img class="img-fluid" src="assets/fuze_banner.jpg">
-        </div>
-        <div class="col-sm-4">
-            <div class="p-3 mb-2 bg-dark text-white">Costa Coffee</div>
-            <img class="img-fluid" img src="assets/costa_banner.jpg">
-        </div>
-        <div class="col-sm-4">
-            <div class="p-3 mb-2 bg-dark text-white">Lilt</div>
-            <img class="img-fluid" img src="assets/lilt_banner.jpg">
+
+    <!--Further Learning Page-->
+    <div id="further_learning_page">
+        <div class="container-fluid main_contents">
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <img class="card-img-top" src="assets/bottle_render.png" />
+                        <h5 class="card-title bg-dark text-white">Photo-Real Rendering</h5>
+                        <div class="card-body">
+                            <p class="card-text">The Fanta bottle was rendered in 3DS Max with realistic textures
+                                applied. Glass textures were applied to the main surface of the bottle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <img class="card-img-top" src="assets/maya_evidence.PNG" />
+                        <h5 class="card-title bg-dark text-white">Usage of Maya</h5>
+                        <div class="card-body">
+                            <p class="card-text">The Dr Pepper can was created using a different 3D modelling program.
+                                Creating circles then lofting between them was used to create surfaces.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <img class="card-img-top" src="assets/blender_evidence.PNG" />
+                        <h5 class="card-title bg-dark text-white">Usage of Blender</h5>
+
+                        <div class="card-body">
+                            <p class="card-text">The Coffee Cup was created using a different 3D modelling program. The
+                                handle was created by selecting edge loops in the outward surface then bridging between
+                                them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row g-0">
-        <div class="p-3 mb-2 bg-dark text-white"> <a href="https://github.com" 
-            <i class="fa-brands fa-github-square fa-3x"></i></a>
-            <a href="https://twitter.com"
-            <i class="fa-brands fa-twitter fa-3x"></i></a>
+
+    <!--About page-->
+    <div id="about_page">
+        <div class="container-fluid main_contents">
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Assignment</h5>
+                        <div class="card-body">
+                            <p class="card-text">The purpose of this project was to create a mobile first webpage with
+                                3D modelling elements.
+                                This has been achieved through the usage of multiple 3D authoring packages, including
+                                3DS Max, Maya, and Blender.
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Persistence and MVC</h5>
+                        <div class="card-body">
+                            <p class="card-text">The persistence layer has been achieved through using SQLite 3, hosted
+                                on the ITS webserver. Using a PHP interface, data can
+                                be fetched from the backend and rendered on the view / web layer. In this assignment
+                                this takes the form of the model descriptions and titles,
+                                which have been stored in the mobileapps.db and fetched when the user loads the model
+                                page.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card" style="width:35rem">
+                        <h5 class="card-title bg-dark text-white">Page Design</h5>
+                        CSS, HTML, and Javascript has been used to make a responsive mobile first single page
+                        application. Heavy usage of the card bootstrap element allows
+                        for the containment of web page content and ensures that it resizes based on page size.
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="row g-1 footer" >
+        <div class="p-3 mb-2 bg-dark text-white"> <a href="https://github.com/jev-e/3dwebapps" <i
+                class="fa-brands fa-github-square fa-3x"></i></a>
+            <a href="https://twitter.com" <i class="fa-brands fa-twitter fa-3x"></i></a>
             <i class="fa-brands fa-facebook-f fa-3x"></i>
         </div>
     </div>

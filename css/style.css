@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'CocaCola';
+    font-style: normal;
+    font-weight: 200;
+    src: url(font/Coca\ Cola\ ii.ttf) format('ttf');
+}
+
+h1 {
+    font-family: 'CocaCola';
+}
+
+.body {
+    background-color: gainsboro;
+}
+.img:hover {
+    backdrop-filter: blur(10px);
+    filter: blur(4px);
+    transition: 0.5s ease;
+}
+
+a {
+    text-decoration: none;
+}
+
+.no-margin {
+
+    margin-bottom:0px;
+}
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
+
+.card-stretch { 
+    display: inline-flex; 
+    flex-wrap: nowrap;
+}
+
+.footer {
+
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+  }
